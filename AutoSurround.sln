@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClassifier", "TestClassifier\TestClassifier.csproj", "{CF8155AC-A3DE-4396-A856-803E1E8C3D9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSurround", "AutoSurround\AutoSurround.csproj", "{CF8155AC-A3DE-4396-A856-803E1E8C3D9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
