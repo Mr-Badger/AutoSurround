@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.Text.Editor;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoSurround
 {
@@ -85,9 +86,11 @@ namespace AutoSurround
 
         private void HandleChange(ITextChange change)
         {
-            // Visual Studio uses fake carret indent in front of empty lines and inserts spaces if needed
-            var newText = Math.Abs(change.LineCountDelta) > 1 && change.OldText.StartsWith("\r\n")
-                        ? change.NewText.TrimStart() 
+            if (change.NewLength == 0)
+                return;
+
+            var newText = change.LineCountDelta != 0 && change.OldText.StartsWith("\r\n")
+                        ? change.NewText[change.NewLength-1].ToString() 
                         : change.NewText;
 
             if (change.OldLength == 0 || newText.Length != 1)
@@ -98,11 +101,15 @@ namespace AutoSurround
             
             if (delimiterMap.TryGetValue(newText[0], out var tags))
             {
-                var text = (newText[0] == '/' ? "*" : "") + change.OldText;
+                var spaces = view.Selection.End.IsInVirtualSpace
+                           ? new string(' ', view.Selection.End.VirtualSpaces)
+                           : "";
 
+                var replaceText = tags.open + change.OldText + spaces + tags.close;
                 var edit = view.TextBuffer.CreateEdit();
-                edit.Insert(change.NewPosition + change.NewLength, text + tags.close);
+                edit.Replace(change.NewEnd - 1, 1, replaceText);
                 edit.Apply();
+                //view.TextBuffer.CurrentSnapshot.CreateTrackingPoint(20, PointTrackingMode.Positive);
             }
         }
         
