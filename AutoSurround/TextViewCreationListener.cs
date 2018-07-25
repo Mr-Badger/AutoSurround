@@ -11,11 +11,11 @@ namespace AutoSurround
     internal sealed class TextViewCreationListener : IWpfTextViewCreationListener
     {
         [Import]
-        internal ITextSearchService textSearchService = null;
+        IEditorOperationsFactoryService factory = null;
 
         public void TextViewCreated(IWpfTextView textView)
         {
-            new AutoSurroundFormatter(textView);
+            new AutoSurroundFormatter(textView, factory);
         }
     }
 }

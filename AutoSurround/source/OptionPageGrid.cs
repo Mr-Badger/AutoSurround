@@ -56,7 +56,7 @@ namespace AutoSurround
         [DisplayName("Enable Braces")]
         [Description("Enable Braces => (sampletext) ")]
         public bool EnableBraces { get; set; } = true;
-
+        
         [ExtensionSetting]
         [Category("Auto Surround")]
         [DisplayName("Enable Doublequotes")]
@@ -77,8 +77,8 @@ namespace AutoSurround
 
         public override void SaveSettingsToStorage()
         {
-            SettingsManager settingsManager = new ShellSettingsManager(ServiceProvider.GlobalProvider);
-            WritableSettingsStore settingsStore = settingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
+            var settingsManager = new ShellSettingsManager(ServiceProvider.GlobalProvider);
+            var settingsStore = settingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
 
             if (!settingsStore.CollectionExists(CollectionName))
             {
@@ -87,7 +87,7 @@ namespace AutoSurround
 
             foreach (PropertyInfo property in GetOptionProperties())
             {
-                string output = SerializeValue(property.GetValue(this));
+                var output = SerializeValue(property.GetValue(this));
                 settingsStore.SetString(CollectionName, property.Name, output);
             }
 
@@ -98,8 +98,8 @@ namespace AutoSurround
 
         public override void LoadSettingsFromStorage()
         {
-            SettingsManager settingsManager = new ShellSettingsManager(ServiceProvider.GlobalProvider);
-            SettingsStore settingsStore = settingsManager.GetReadOnlySettingsStore(SettingsScope.UserSettings);
+            var settingsManager = new ShellSettingsManager(ServiceProvider.GlobalProvider);
+            var settingsStore = settingsManager.GetReadOnlySettingsStore(SettingsScope.UserSettings);
 
             if (!settingsStore.CollectionExists(CollectionName))
             {
@@ -110,7 +110,7 @@ namespace AutoSurround
             {
                 try
                 {
-                    string serializedProp = settingsStore.GetString(CollectionName, property.Name);
+                    var serializedProp = settingsStore.GetString(CollectionName, property.Name);
                     object value = DeserializeValue(serializedProp, property.PropertyType);
                     property.SetValue(this, value);
                 }
@@ -124,12 +124,10 @@ namespace AutoSurround
         private IEnumerable<PropertyInfo> GetOptionProperties()
         {
             return GetType()
-                .GetProperties()
-                .Where(
-                    p => p.PropertyType.IsSerializable
-                      && p.PropertyType.IsPublic
-                      && Attribute.IsDefined(p, typeof(ExtensionSettingAttribute))
-                );
+                  .GetProperties()
+                  .Where(p => p.PropertyType.IsSerializable
+                           && p.PropertyType.IsPublic
+                           && Attribute.IsDefined(p, typeof(ExtensionSettingAttribute)));
         }
 
         /// <summary>
