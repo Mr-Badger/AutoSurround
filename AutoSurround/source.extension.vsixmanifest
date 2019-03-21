@@ -1,19 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="AutoSurround.afa4b17b-a364-4ee1-b8a9-a4880007b47c" Version="0.7" Language="en-US" Publisher="Sigtryggur Ómarsson" />
+        <Identity Id="AutoSurround.afa4b17b-a364-4ee1-b8a9-a4880007b47c" Version="0.8" Language="en-US" Publisher="Sigtryggur Ómarsson" />
         <DisplayName>Auto Surround</DisplayName>
         <Description xml:space="preserve">Automatically wraps selected text with delimiters.
 Works similar to VS Code wrapper.
 
 --Supports wrapping on:
-Singequotes
-Doublequotes
+Singe quotes
+Double quotes
 Parentheses
 Braces
 Square brackets
 Angle brackets
-Block comment
 
 --Can all be toggled in the settings</Description>
         <License>FreeBSD License.txt</License>
