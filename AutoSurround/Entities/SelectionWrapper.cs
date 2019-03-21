@@ -1,7 +1,7 @@
 ﻿namespace AutoSurround.Entities
 {
     class SelectionWrapper
-    { 
+    {
         public string OpenTag { get; set; }
 
         public string CloseTag { get; set; }

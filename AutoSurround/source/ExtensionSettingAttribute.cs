@@ -2,5 +2,6 @@
 
 namespace AutoSurround
 {
-    class ExtensionSettingAttribute : Attribute {}
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    internal class ExtensionSettingAttribute : Attribute {}
 }
